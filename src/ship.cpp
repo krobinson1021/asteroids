@@ -1,88 +1,157 @@
 
+#include <cmath>
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include <vector>
 
 #include "asteroid.hpp"
 #include "functions.hpp"
 #include "laser.hpp"
+#include "position.hpp"
 #include "ship.hpp"
 
-void Ship::UpdatePosition(double xVelocity, double yVelocity) {
+extern const double WIN_WIDTH;
+extern const double WIN_HEIGHT;
 
-    double xCor = shape.getPosition().x;
-    double yCor = shape.getPosition().y;
-    shape.setPosition(xCor + xVelocity, yCor + yVelocity);
+using namespace std;
+
+void Ship::UpdatePosition() {
+    struct Position curPos = getPosition();
+    curPos.x += curPos.dx;
+    curPos.y += curPos.dy;
+
+    if (curPos.x > WIN_WIDTH - 3) {
+        curPos.x = -3;
+    }
+    if (curPos.x < -3) {
+        curPos.x = WIN_WIDTH + 3;
+    }
+    if (curPos.y > WIN_HEIGHT - 3) {
+        curPos.y = -3;
+    }
+    if (curPos.y < -3) {
+        curPos.y = WIN_HEIGHT + 3;
+    }
+    setPosition(curPos);
 }
 
-Ship::Ship(sf::RenderWindow &window) {
-
-    shape.setFillColor(sf::Color(102, 51, 255));
-    shape.setOutlineThickness(4);
-    shape.setOutlineColor(sf::Color(153, 255, 0));
-    shape.setScale(sf::Vector2f(0.5f, 1.f));
-    shape.setPosition(690, 690); // default constructor is to start in center of screen
-
-    speed = 0;
+Ship::Ship() {
+    coordinates.x = WIN_WIDTH / 2;
+    coordinates.y = WIN_HEIGHT / 2;
+    coordinates.dy = 1;
+    coordinates.dx = 1;
     maximumSpeed = 75;
-    isAlive = true;
+    minSpeed = 1;
 
-    window.draw(shape);
-}
-
-Ship::Ship(double x, double y, sf::RenderWindow &window) {
     shape.setFillColor(sf::Color(102, 51, 255));
     shape.setOutlineThickness(4);
     shape.setOutlineColor(sf::Color(153, 255, 0));
     shape.setScale(sf::Vector2f(0.5f, 1.f));
-    shape.setPosition(x, y); // this constructor allows you to change where ship is created
+    shape.setPosition(coordinates.x, coordinates.y); /// this constructor allows you to change where ship is created
 
-    speed = 0;
-    maximumSpeed = 100;
+    double currentAngle = atan2 (coordinates.dy, coordinates.dx);
+    currentAngle = radiansToDegrees(currentAngle);
+    currentAngle += 90;
+
+    shape.setRotation(currentAngle);
+
+    isAlive = true;
+}
+
+void Ship::reset() {
+
+    coordinates.x = WIN_HEIGHT / 2;
+    coordinates.y = WIN_WIDTH / 2;
+    coordinates.dy = 1;
+    coordinates.dx = 1;
+    maximumSpeed = 75;
+    minSpeed = 1;
+
+    double currentAngle = atan2 (coordinates.dy, coordinates.dx);
+    currentAngle = radiansToDegrees(currentAngle);
+    currentAngle += 90;
+    shape.setRotation(currentAngle);
+
     isAlive = true;
 
-    window.draw(shape);
 }
 
-void Ship::VelocityAdjustment(sf::RenderWindow &window, bool alive, double &dx, double &dy, double &x, double &y, double &angle) {
+void Ship::changeSpeed(double speedInc) {
+    struct Position curPos = getPosition();
+    double speed = sqrt(curPos.dx * curPos.dx + curPos.dy * curPos.dy);
 
-    double windowWidth = 1400;
-    double windowHeight = 1400;
-
-    if (alive == true) {
-        dx += cos(degreesToRadians(angle));
-        dy += sin(degreesToRadians(angle));
+    // to increase or decrease speed
+    if (speedInc > 0) {
+        speed += speedInc;
     } else {
-        dx *= 0.99; // slows x velocity gradually when up key not pressed
-        dy *= 0.99; // slows y velocity gradually when up key not pressed
+        speed *= .99;
     }
 
-    double speed = sqrt((dx * dx) + (dy * dy)); // pythagorean theorem
-    if (speed > maximumSpeed) {
-        dx *= maximumSpeed / speed;
-        dy *= maximumSpeed / speed;
+    // enforce min and max speeds
+    if (speed < minSpeed) {
+        speed = minSpeed;
+    } else if (speed > maximumSpeed) {
+        speed = maximumSpeed;
     }
 
-    x += dx; // x position += x velocity
-    y += dy; // y position += y velocity
+    double currentAngle = atan2 (curPos.dy, curPos.dx);
+    curPos.dx = speed * cos(currentAngle);
+    curPos.dy = speed * sin(currentAngle);
+    setPosition(curPos);
 
-
-    if (x > windowWidth) { // right edge cases
-        x = 0;
-    }
-
-    if (x < 0) { // left edge cases
-        x = windowWidth;
-    }
-
-    if (y > windowHeight - 1) { // bottom edge cases
-        y = 0;
-    }
-
-    if (y < 0) { // top edge cases
-        y = windowHeight - 1;
-    }
-
-    shape.setPosition(x, y); // updates coordinates of ship object
-    shape.setRotation(angle + 90);
 }
+
+void Ship::RotateIncrement(double newAngle) {
+    double radian = degreesToRadians(newAngle);
+    shape.rotate(newAngle);
+
+    // get current position
+    struct Position curPos = getPosition();
+
+    // update
+    double currentAngle = atan2 (curPos.dy, curPos.dx);
+    radian += currentAngle;
+
+    double hyp = sqrt(curPos.dx * curPos.dx + curPos.dy * curPos.dy);
+    curPos.dx = hyp * cos(radian);
+    curPos.dy = hyp * sin(radian);
+
+    // set new position
+    setPosition(curPos);
+}
+
+struct Position Ship::getPosition() {
+    return coordinates;
+}
+
+void Ship::setPosition(struct Position &dxy) {
+    coordinates.x = dxy.x;
+    coordinates.y = dxy.y;
+    coordinates.dx = dxy.dx;
+    coordinates.dy = dxy.dy;
+
+    return;
+}
+
+void Ship::setPositionIncrement(struct Position &dxy) {
+    coordinates.x += dxy.x;
+    coordinates.y += dxy.y;
+    return;
+}
+
+void Ship::draw(sf::RenderWindow &window) {
+    struct Position curPos = getPosition();
+    sf::Vector2f v1(curPos.x, curPos.y);
+    shape.setPosition(v1);
+
+    window.draw(shape);
+
+    return;
+}
+
+
+
+
+
+
+
+

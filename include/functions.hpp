@@ -4,27 +4,16 @@
 
 #include <SFML/Graphics.hpp>
 
-/**
-    Changes screen to end screen.
+#include "position.hpp"
 
-    @param the window on which end game screen should be displayed.
-*/
-void GameEndsLose(sf::RenderWindow &);
+using namespace std;
 
-/**
-    Adjusts object's coordinates after it goes off screen (wraps).
+void displayGameOverScreen(sf::RenderWindow &);
 
-    @param x-coordinate
-    @param y-coordinate
-*/
-void WrapAround(double xCor, double yCor);
-
-/**
-    Converts degrees to radians.
-
-    @param angle in degrees
-    @return angle in radians
-*/
 double degreesToRadians(double degrees);
+
+double radiansToDegrees(double radians);
+
+void displayStartScreen(sf::RenderWindow &window);
 
 #endif /* functions_hpp */

@@ -1,33 +1,50 @@
 
-#ifndef class_hpp
-#define class_hpp
+#ifndef ship_hpp
+#define ship_hpp
 
 #include <SFML/Graphics.hpp>
+
+#include "position.hpp"
+
+extern const double WIN_WIDTH;
+extern const double WIN_HEIGHT;
 
 class Ship {
 
 private:
 
-	double speed; // How fast ship is currently moving
+    double maximumSpeed;
 
-	bool isAlive; // True if ship has not hit an asteroid
+    double minSpeed;
+
+    bool isAlive; /// False if ship hits asteroid
+
+    struct Position coordinates;  /// Struct of position information and coordinates
 
 public:
 
-	double maximumSpeed; // Speed will no longer increase while boosting after this threshold
+    struct Position getPosition();
 
-	Ship (sf::RenderWindow &window); // Default constructor (starts in middle of screen with angle 0)
+    void setPosition(struct Position &dxy);
 
-	Ship (double x, double y, sf::RenderWindow &window); // Constructor of ship at given coordinates
+    void setPositionIncrement(struct Position &dxy);
 
-	sf::CircleShape shape {50, 3};
+    void reset();
 
-	void UpdatePosition(double x, double y); // Sets new ship coordinates
+    Ship(); /// Constructor for ship at given coordinates
 
-	bool WasHit(double x, double y); // Returns true if x and y are within both asteroid and ship
+    sf::CircleShape shape {50, 3}; /// Shape of object
 
-	void VelocityAdjustment(sf::RenderWindow &window, bool alive, double &dx, double &dy, double &x, double &y, double &angle);
+    void changeSpeed(double);
+
+    void UpdatePosition();
+
+    void draw(sf::RenderWindow &window);
+
+    void RotateIncrement(double angle);
+
+    void Reset(); /// Reset to center of screen and original angle
 
 };
 
-#endif /* class_hpp */
+#endif /* ship_hpp */
