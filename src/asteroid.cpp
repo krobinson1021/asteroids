@@ -19,20 +19,21 @@ using namespace std;
 
 Asteroid::Asteroid(int x, int y) {
 	angle = rand() % 360 + 1;
-	int radius = rand() % 70 + 6;
+	radius = rand() % 70 + 20;
 
 	shape.setRadius(radius);
 	coordinates.x = x;
 	coordinates.y = y;
 	coordinates.dx = 0;
 	coordinates.dy = 0;
-	speed = rand() % 12 + 1;
+	speed = rand() % 10 + 1;
+	explodeCount = 0;
 
 	shape.setFillColor(sf::Color(224, 224, 224));
 	shape.setOutlineThickness(4);
 	shape.setOutlineColor(sf::Color(255, 255, 255));
 	shape.setScale(sf::Vector2f(1.f, 1.f));
-	shape.setPosition(coordinates.x, coordinates.y); /// this constructor allows you to change where ship is created
+	shape.setPosition(coordinates.x, coordinates.y);
 	shape.setRotation(angle);
 }
 
@@ -83,9 +84,31 @@ sf::CircleShape Asteroid::getShape() {
 }
 
 struct Position Asteroid::getCenter() {
-    struct Position center;
-    sf::FloatRect rect = shape.getGlobalBounds();
-    center.x = rect.left + (rect.width / 2);
-    center.y = rect.top + (rect.height / 2);
-    return center;
+	struct Position center;
+	sf::FloatRect rect = shape.getGlobalBounds();
+	center.x = rect.left + (rect.width / 2);
+	center.y = rect.top + (rect.height / 2);
+	return center;
+}
+
+void Asteroid::explode(vector<Asteroid> &asteroids) {
+	explodeCount++;
+	if (radius > 20 && explodeCount < 3) {
+		for (int i = 1; i <= 3; i++) {
+			Asteroid child = Asteroid(coordinates.x, coordinates.y);
+			child.angle = angle + (rand() % 360);
+			child.shape.setRadius(radius / (explodeCount + 1)); // half as big
+			child.coordinates.dx = coordinates.dx;
+			child.coordinates.dy = coordinates.dy;
+			child.speed = speed;
+			child.explodeCount = explodeCount;
+			child.shape.setFillColor(sf::Color(224, 224, 224));
+			child.shape.setOutlineThickness(4);
+			child.shape.setOutlineColor(sf::Color(255, 255, 255));
+			child.shape.setScale(sf::Vector2f(1.f, 1.f));
+			child.shape.setPosition(coordinates.x, coordinates.y);
+			child.shape.setRotation(angle);
+			asteroids.push_back(child);
+		}
+	}
 }

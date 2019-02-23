@@ -20,6 +20,10 @@ private:
 
 	int angle;
 
+	int radius;
+
+	int explodeCount;
+
 public:
 
 	Asteroid(int x, int y); // constructs ship at given coordinates
@@ -35,6 +39,8 @@ public:
 	sf::CircleShape getShape();
 
 	struct Position getCenter();
+
+	void explode(vector<Asteroid> &asteroids);
 
 };
 

@@ -115,8 +115,9 @@ int main() {
         for (int i = 0; i < allAsteroids.size(); i++) {
             for (int j = 0; j < allLasers.size(); j++) {
                 if (checkHit(allAsteroids[i], allLasers[j])) {
-                    allAsteroids.erase(allAsteroids.begin() + i);
                     allLasers.erase(allLasers.begin() + j);
+                    allAsteroids[i].explode(allAsteroids);
+                    allAsteroids.erase(allAsteroids.begin() + i);
                 }
             }
         }
@@ -128,11 +129,11 @@ int main() {
         }
         if (collision) {
             displayGameOverScreen(window);
-            player.reset();
-            allAsteroids = createAsteroids(NUM_ASTEROIDS); // create new asteroids
-            removeLasers(allLasers);
             while (window.waitEvent(event)) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                    player.reset();
+                    allAsteroids = createAsteroids(NUM_ASTEROIDS); // create new asteroids
+                    removeLasers(allLasers);
                     break;
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
@@ -141,10 +142,21 @@ int main() {
             }
         }
 
-// Check for win (asteroids cleared)
+// Checking for win (asteroids cleared)
 
         if (allAsteroids.size() == 0) {
             displayGameWinScreen(window);
+            while (window.waitEvent(event)) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                    player.reset();
+                    allAsteroids = createAsteroids(NUM_ASTEROIDS); // create new asteroids
+                    removeLasers(allLasers);
+                    break;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+                    window.close();
+                }
+            }
         }
 
         window.display(); // Updating screen

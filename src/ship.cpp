@@ -117,6 +117,3 @@ struct Position Ship::getCenter() {
 
 
 
-
-
-
