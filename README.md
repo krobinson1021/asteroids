@@ -10,7 +10,7 @@ I created this version of the vintage arcade game 'Asteroids!' in C++ with the S
 - **Rotate Right**: right arrow
 - **Fire Laser**: spacebar
 - **Close Window**: 'q'
--* *Start/Restart Game**: 's'
+- **Start/Restart Game**: 's'
 
 # Resources
 - SFML library: https://www.sfml-dev.org/
