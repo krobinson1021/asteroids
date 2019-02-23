@@ -41,6 +41,8 @@ public:
 
     void reset();
 
+    double getAngle();
+
 };
 
 #endif /* ship_hpp */

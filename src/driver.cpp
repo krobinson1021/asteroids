@@ -40,7 +40,7 @@ int main() {
 
 /// Creating player ship and the vectors of Asteroids and Bullets
 
-    Ship ship = Ship();
+    Ship player = Ship();
 
     vector<Asteroid> allAsteroids;
     for (int i = 0; i < (NUM_ASTEROIDS / 4); i++) {
@@ -57,6 +57,8 @@ int main() {
         allAsteroids.push_back(asteroid3);
         allAsteroids.push_back(asteroid4);
     }
+
+    vector<Laser> allLasers;
 
 /// Beginning main game loop and showing Start Menu
 
@@ -90,45 +92,51 @@ int main() {
         /// Rotate counterclockwise with left arrow key
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            ship.rotate(-5);
+            player.rotate(-5);
         }
 
         /// Increase thrust with up arrow key
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            ship.accelerate(2);
+            player.accelerate(2);
         } else {
-            ship.accelerate(-.1);
+            player.accelerate(-.1);
         }
 
         /// Rotate clockwise with right arrow key
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            ship.rotate(5);
+            player.rotate(5);
         }
 
         /// Decrease thrust with down arrow key
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            ship.accelerate(-2);
+            player.accelerate(-2);
         }
 
         /// Fire bullets with space key and push them back into vector
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            // fire
+            Laser l = Laser(player);
+            allLasers.push_back(l);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
             window.close();
         }
 
-        ship.update();
-        ship.draw(window);
+        player.update();
+        player.draw(window);
 
         for (int i = 0; i < allAsteroids.size(); i++) {
             allAsteroids[i].update();
             allAsteroids[i].draw(window);
+        }
+
+        for (int i = 0; i < allLasers.size(); i++) {
+            allLasers[i].update();
+            allLasers[i].draw(window);
         }
 
 
@@ -136,13 +144,13 @@ int main() {
 
         bool collision = false;
         for (Asteroid a : allAsteroids) {
-            if (collisionOccurred(a, ship)) {
+            if (collisionOccurred(a, player)) {
                 collision = true;
             }
         }
         if (collision) {
             displayGameOverScreen(window);
-            ship.reset();
+            player.reset();
             shuffle(allAsteroids);
             while (window.waitEvent(event)) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {

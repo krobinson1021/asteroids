@@ -64,7 +64,7 @@ bool collisionOccurred(Asteroid asteroid, Ship ship) {
     int asteroidY = asteroid.getShape().getPosition().y;
     int shipX = ship.getPosition().x;
     int shipY = ship.getPosition().y;
-    return (getDistance(asteroidX, asteroidY, shipX, shipY) < asteroidRadius);
+    return ((getDistance(asteroidX, asteroidY, shipX, shipY) - asteroidRadius) < 0);
 }
 
 double getDistance(int x1, int y1, int x2, int y2) {
