@@ -43,8 +43,7 @@ void displayGameOverScreen(sf::RenderWindow &window) {
 }
 
 double degreesToRadians(double degrees) {
-    double radians = degrees * (M_PI / 180);
-    return radians;
+    return(degrees * (M_PI / 180));
 }
 
 double radiansToDegrees(double radians) {

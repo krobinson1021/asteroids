@@ -73,24 +73,28 @@ int main() {
         /// Rotate counterclockwise with left arrow key
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            ship.RotateIncrement(-5);
+            ship.rotate(-5);
         }
 
         /// Increase thrust with up arrow key
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            ship.changeSpeed(2);
+            ship.accelerate(2);
         } else {
-            ship.changeSpeed(-1);
+            ship.accelerate(-.1);
         }
 
         /// Rotate clockwise with right arrow key
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            ship.RotateIncrement(5);
+            ship.rotate(5);
         }
-        ship.UpdatePosition();
-        ship.draw(window);
+
+        /// Decrease thrust with down arrow key
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            ship.accelerate(-2);
+        }
 
         /// Fire bullets with space key and push them back into vector
 
@@ -98,8 +102,11 @@ int main() {
             // fire
         }
 
+        ship.update();
+        ship.draw(window);
+
 // If ship hits asteroid, display game over screen
-        
+
         bool collision = false;
         if (collision) {
 
