@@ -16,7 +16,7 @@ I created this version of the vintage arcade game 'Asteroids!' in C++ with the S
 
 ![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/start.png)
 ![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/gameplay.png)
-![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/gameover.png)
+![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/game%20over.png)
 ![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/win.png)
 
 # Resources
