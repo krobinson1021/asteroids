@@ -12,6 +12,10 @@ I created this version of the vintage arcade game 'Asteroids!' in C++ with the S
 - **Close Window**: 'q'
 - **Start/Restart Game**: 's'
 
+# Gameplay
+
+![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/start.png)
+
 # Resources
 - SFML library: https://www.sfml-dev.org/
 - Credit to Tenshiikisu for the star background: http://tenshiikisu.tumblr.com/post/79015021080/heres-my-collection-of-pixel-backgrounds-tile
