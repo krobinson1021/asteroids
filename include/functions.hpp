@@ -21,6 +21,8 @@ bool collisionOccurred(Asteroid asteroid, Ship player);
 
 double getDistance(int x1, int y1, int x2, int y2);
 
-void shuffle(vector<Asteroid> &asteroids);
+void shuffleAsteroids(vector<Asteroid> &asteroids);
+
+vector<Asteroid> createAsteroids(int x);
 
 #endif /* functions_hpp */

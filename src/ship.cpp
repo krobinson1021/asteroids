@@ -106,6 +106,10 @@ double Ship::getAngle() {
     return angle;
 }
 
+sf::CircleShape Ship::getShape() {
+    return shape;
+}
+
 
 
 

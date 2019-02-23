@@ -10,6 +10,9 @@
 #include "position.hpp"
 #include "ship.hpp"
 
+extern const double WIN_WIDTH;
+extern const double WIN_HEIGHT;
+
 using namespace std;
 
 void displayGameOverScreen(sf::RenderWindow &window) {
@@ -71,7 +74,7 @@ double getDistance(int x1, int y1, int x2, int y2) {
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
-void shuffle(vector<Asteroid> &asteroids) {
+void shuffleAsteroids(vector<Asteroid> &asteroids) {
     int width = (int) WIN_WIDTH;
     int height = (int) WIN_HEIGHT;
     for (int i = 0; i < asteroids.size(); i++) {
@@ -98,5 +101,24 @@ void shuffle(vector<Asteroid> &asteroids) {
             asteroids[i].setPosition(pos);
         }
     }
+}
+
+vector<Asteroid> createAsteroids(int x) {
+    vector<Asteroid> allAsteroids;
+    for (int i = 0; i < (x / 4); i++) {
+        int width = (int) WIN_WIDTH;
+        int height = (int) WIN_HEIGHT;
+        int x = rand() % width;
+        int y = rand() % height;
+        Asteroid asteroid1 = Asteroid(x, 0);
+        Asteroid asteroid2 = Asteroid(x, WIN_HEIGHT);
+        Asteroid asteroid3 = Asteroid(0, y);
+        Asteroid asteroid4 = Asteroid(WIN_WIDTH, y);
+        allAsteroids.push_back(asteroid1);
+        allAsteroids.push_back(asteroid2);
+        allAsteroids.push_back(asteroid3);
+        allAsteroids.push_back(asteroid4);
+    }
+    return allAsteroids;
 }
 

@@ -43,6 +43,8 @@ public:
 
     double getAngle();
 
+    sf::CircleShape getShape();
+
 };
 
 #endif /* ship_hpp */

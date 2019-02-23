@@ -12,8 +12,8 @@
 using namespace std;
 
 Laser::Laser(Ship player) {
-	coordinates.x = player.getPosition().x;
-	coordinates.y = player.getPosition().y;
+	coordinates.x = player.getShape().getPosition().x;
+	coordinates.y = player.getShape().getPosition().y;
 	coordinates.dx = player.getPosition().dx;
 	coordinates.dy = player.getPosition().dy;
 	angle = player.getAngle();

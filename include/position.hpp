@@ -10,7 +10,6 @@ struct Position {
 	double y;
 	double dx;
 	double dy;
-    double angle;
 
 };
 

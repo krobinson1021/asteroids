@@ -18,84 +18,47 @@ const int NUM_ASTEROIDS = 10;
 
 int main() {
 
-/// Creating game window and setting framerate limit
+// Creating game window and setting framerate limit
 
     sf::ContextSettings settings; /// antialiasing to smooth shapes
     settings.antialiasingLevel = 8;
-
     sf::RenderWindow window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "ASTEROIDS!", sf::Style::Default, settings);
-
     window.setFramerateLimit(60);
 
-/// Loading background texture
+// Loading background texture
 
     sf::Texture stars;
-
     if (!stars.loadFromFile("../graphics/stars.png")) {
         cout << "Error loading background." << endl;
         return 0;
     }
-
     sf::Sprite background(stars);
 
-/// Creating player ship and the vectors of Asteroids and Bullets
+// Creating player ship and the vectors of Asteroids and Bullets
 
     Ship player = Ship();
-
-    vector<Asteroid> allAsteroids;
-    for (int i = 0; i < (NUM_ASTEROIDS / 4); i++) {
-        int width = (int) WIN_WIDTH;
-        int height = (int) WIN_HEIGHT;
-        int x = rand() % width;
-        int y = rand() % height;
-        Asteroid asteroid1 = Asteroid(x, 0);
-        Asteroid asteroid2 = Asteroid(x, WIN_HEIGHT);
-        Asteroid asteroid3 = Asteroid(0, y);
-        Asteroid asteroid4 = Asteroid(WIN_WIDTH, y);
-        allAsteroids.push_back(asteroid1);
-        allAsteroids.push_back(asteroid2);
-        allAsteroids.push_back(asteroid3);
-        allAsteroids.push_back(asteroid4);
-    }
-
+    vector<Asteroid> allAsteroids = createAsteroids(NUM_ASTEROIDS);
     vector<Laser> allLasers;
 
 /// Beginning main game loop and showing Start Menu
 
     sf::Event event;
 
-    while (window.waitEvent(event)) {
-
+    while (window.waitEvent(event)) { // if player presses 's' begin game
         displayStartScreen(window);
-
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S) {
             break;
         }
     }
-
     while (window.isOpen()) {
         window.clear();
         window.draw(background);
 
-        while (window.pollEvent(event)) {
-            switch (event.type) {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            default:
-                break;
-            }
-        }
-
-/// User input (keypress events)
-
-        /// Rotate counterclockwise with left arrow key
+// Player movement listeners
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             player.rotate(-5);
         }
-
-        /// Increase thrust with up arrow key
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
             player.accelerate(2);
@@ -103,28 +66,36 @@ int main() {
             player.accelerate(-.1);
         }
 
-        /// Rotate clockwise with right arrow key
-
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             player.rotate(5);
         }
-
-        /// Decrease thrust with down arrow key
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
             player.accelerate(-2);
         }
 
-        /// Fire bullets with space key and push them back into vector
+// Listen for spacebar firing command
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            Laser l = Laser(player);
-            allLasers.push_back(l);
+        while (window.pollEvent(event)) {
+            switch (event.type) {
+            case sf::Event::KeyReleased:
+                if (event.key.code == sf::Keyboard::Space) {
+                    Laser l = Laser(player);
+                    allLasers.push_back(l);
+                }
+                break;
+            default:
+                break;
+            }
         }
+
+// Allow user to exit game with 'q'
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
             window.close();
         }
+
+// Updating object positions
 
         player.update();
         player.draw(window);
@@ -139,8 +110,7 @@ int main() {
             allLasers[i].draw(window);
         }
 
-
-// If ship hits asteroid, display game over screen
+// Checking for collisions
 
         bool collision = false;
         for (Asteroid a : allAsteroids) {
@@ -151,7 +121,7 @@ int main() {
         if (collision) {
             displayGameOverScreen(window);
             player.reset();
-            shuffle(allAsteroids);
+            shuffleAsteroids(allAsteroids);
             while (window.waitEvent(event)) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
                     break;
@@ -161,10 +131,7 @@ int main() {
                 }
             }
         }
-
-/// Updating positions and redrawing asteroids
-
-        window.display();
+        window.display(); // Updating screen
     }
     return 0;
 }
