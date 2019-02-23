@@ -2,7 +2,6 @@
 #include <iostream>
 #include <math.h>
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 #include "asteroid.hpp"
 #include "functions.hpp"
@@ -13,33 +12,28 @@
 using namespace std;
 
 void displayGameOverScreen(sf::RenderWindow &window) {
-
     window.clear(sf::Color::Black);
 
     sf::Texture starsWithFlames;
-
     if (!starsWithFlames.loadFromFile("../graphics/starswithflames.png")) {
-        cout << "Error: Failed to load background." << endl;
+        cout << "Failed to load background image.\n";
     }
     sf::Sprite background(starsWithFlames);
     window.draw(background);
 
     sf::Font font;
-
     if (!font.loadFromFile("8bit.ttf")) {
-        cout << "Error: Failed to load font." << endl;
+        cout << "Failed to load font.\n";
     }
-
     sf::Text text;
     text.setFont(font);
     text.setString("YOU DIED");
     text.setCharacterSize(140);
     text.setFillColor(sf::Color::Red);
     text.setPosition(230, 200);
-
     window.draw(text);
-    window.display();
 
+    window.display();
 }
 
 double degreesToRadians(double degrees) {
@@ -47,21 +41,19 @@ double degreesToRadians(double degrees) {
 }
 
 double radiansToDegrees(double radians) {
-    double degrees = radians *  (180 / M_PI);
-    return degrees;
+    return(radians *  (180 / M_PI));
 }
 
 void displayStartScreen(sf::RenderWindow &window) {
     window.clear(sf::Color::Black);
 
     sf::Texture startScreen;
-
     if (!startScreen.loadFromFile("../graphics/startscreen.png")) {
-        cout << "ERROR" << endl;
+        cout << "Failed to load start screen.\n";
     }
-
     sf::Sprite background(startScreen);
     window.draw(background);
+
     window.display();
 }
 

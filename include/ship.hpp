@@ -13,25 +13,19 @@ class Ship {
 
 private:
 
+    sf::CircleShape shape {50, 3};
+
     double maxSpeed;
 
     double minSpeed;
 
     double angle;
 
-    bool isAlive; /// False if ship hits asteroid
-
-    struct Position coordinates;  /// Struct of position information and coordinates
+    struct Position coordinates;
 
 public:
 
-    struct Position getPosition();
-
-    void setPosition(struct Position &dxy);
-
-    Ship(); /// Constructor for ship at given coordinates
-
-    sf::CircleShape shape {50, 3}; /// Shape of object
+    Ship(); // constructs ship at center of screen
 
     void accelerate(double);
 
@@ -41,7 +35,9 @@ public:
 
     void rotate(double angle);
 
-    void Reset(); /// Reset to center of screen and original angle
+    struct Position getPosition();
+
+    void setPosition(const struct Position &pos);
 
 };
 

@@ -2,7 +2,6 @@
 #include <cmath>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 #include "asteroid.hpp"
 #include "functions.hpp"
@@ -30,8 +29,6 @@ Ship::Ship() {
     shape.setScale(sf::Vector2f(0.5f, 1.f));
     shape.setPosition(coordinates.x, coordinates.y); /// this constructor allows you to change where ship is created
     shape.setRotation(angle + 90);
-
-    isAlive = true;
 }
 
 void Ship::update() {
@@ -86,7 +83,7 @@ struct Position Ship::getPosition() {
     return coordinates;
 }
 
-void Ship::setPosition(struct Position &pos) {
+void Ship::setPosition(const struct Position &pos) {
     coordinates.x = pos.x;
     coordinates.y = pos.y;
     coordinates.dx = pos.dx;
