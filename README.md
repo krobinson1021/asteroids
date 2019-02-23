@@ -1,6 +1,6 @@
 # Asteroids!
 
-I created this version of Asteroids in C++ with the SFML library for fun!
+I created this version of the vintage arcade game 'Asteroids!' in C++ with the SFML library for fun!
 
 # Commands
 
