@@ -49,6 +49,9 @@ int main() {
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S) {
             break;
         }
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q) {
+            window.close();
+        }
     }
     while (window.isOpen()) {
         window.clear();
