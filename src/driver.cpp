@@ -14,7 +14,7 @@ using namespace std;
 
 const double WIN_WIDTH = 1400;
 const double WIN_HEIGHT = 1400;
-const int NUM_ASTEROIDS = 10;
+const int NUM_ASTEROIDS = 8;
 
 int main() {
 
