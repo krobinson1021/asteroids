@@ -43,7 +43,7 @@ public:
 
     double getAngle();
 
-    sf::CircleShape getShape();
+    struct Position getCenter();
 
 };
 

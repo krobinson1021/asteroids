@@ -4,10 +4,14 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "asteroid.hpp"
+#include "laser.hpp"
 #include "position.hpp"
 #include "ship.hpp"
 
 using namespace std;
+
+void displayGameWinScreen(sf::RenderWindow &window);
 
 void displayGameOverScreen(sf::RenderWindow &);
 
@@ -17,12 +21,14 @@ double radiansToDegrees(double radians);
 
 void displayStartScreen(sf::RenderWindow &window);
 
-bool collisionOccurred(Asteroid asteroid, Ship player);
+bool checkCollision(Asteroid asteroid, Ship player);
+
+bool checkHit(Asteroid asteroid, Laser laser);
 
 double getDistance(int x1, int y1, int x2, int y2);
 
-void shuffleAsteroids(vector<Asteroid> &asteroids);
-
 vector<Asteroid> createAsteroids(int x);
+
+void removeLasers(vector<Laser> &lasers);
 
 #endif /* functions_hpp */

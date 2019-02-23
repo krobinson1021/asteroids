@@ -12,12 +12,12 @@
 using namespace std;
 
 Laser::Laser(Ship player) {
-	coordinates.x = player.getShape().getPosition().x;
-	coordinates.y = player.getShape().getPosition().y;
+	coordinates.x = player.getCenter().x;
+	coordinates.y = player.getCenter().y;
 	coordinates.dx = player.getPosition().dx;
 	coordinates.dy = player.getPosition().dy;
 	angle = player.getAngle();
-	speed = 8;
+	speed = 10;
 	shape.setFillColor(sf::Color(255, 255, 255));
 }
 

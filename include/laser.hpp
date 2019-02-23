@@ -14,7 +14,7 @@ class Laser {
 
 private:
 
-	sf::CircleShape shape {2, 30};
+	sf::CircleShape shape {3, 30};
 
 	double speed;
 

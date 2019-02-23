@@ -15,6 +15,31 @@ extern const double WIN_HEIGHT;
 
 using namespace std;
 
+void displayGameWinScreen(sf::RenderWindow &window) {
+    window.clear(sf::Color::Black);
+
+    sf::Texture stars;
+    if (!stars.loadFromFile("../graphics/stars.png")) {
+        cout << "Error loading background." << endl;
+    }
+    sf::Sprite background(stars);
+    window.draw(background);
+
+    sf::Font font;
+    if (!font.loadFromFile("../graphics/8bit.ttf")) {
+        cout << "Failed to load font.\n";
+    }
+    sf::Text text;
+    text.setFont(font);
+    text.setString("YOU WON");
+    text.setCharacterSize(140);
+    text.setFillColor(sf::Color::Green);
+    text.setPosition(225, 600);
+    window.draw(text);
+
+    window.display();
+}
+
 void displayGameOverScreen(sf::RenderWindow &window) {
     window.clear(sf::Color::Black);
 
@@ -34,7 +59,7 @@ void displayGameOverScreen(sf::RenderWindow &window) {
     text.setString("YOU DIED");
     text.setCharacterSize(140);
     text.setFillColor(sf::Color::Red);
-    text.setPosition(230, 200);
+    text.setPosition(225, 200);
     window.draw(text);
 
     window.display();
@@ -61,46 +86,26 @@ void displayStartScreen(sf::RenderWindow &window) {
     window.display();
 }
 
-bool collisionOccurred(Asteroid asteroid, Ship ship) {
+bool checkCollision(Asteroid asteroid, Ship ship) {
     int asteroidRadius = asteroid.getShape().getRadius();
-    int asteroidX = asteroid.getShape().getPosition().x;
-    int asteroidY = asteroid.getShape().getPosition().y;
-    int shipX = ship.getPosition().x;
-    int shipY = ship.getPosition().y;
-    return ((getDistance(asteroidX, asteroidY, shipX, shipY) - asteroidRadius) < 0);
+    int asteroidX = asteroid.getCenter().x;
+    int asteroidY = asteroid.getCenter().y;
+    int shipX = ship.getCenter().x;
+    int shipY = ship.getCenter().y;
+    return ((getDistance(asteroidX, asteroidY, shipX, shipY) - asteroidRadius) < 15); // 15 estimates center radius of ship
+}
+
+bool checkHit(Asteroid asteroid, Laser laser) {
+    int asteroidRadius = asteroid.getShape().getRadius();
+    int asteroidX = asteroid.getCenter().x;
+    int asteroidY = asteroid.getCenter().y;
+    int laserX = laser.getPosition().x;
+    int laserY = laser.getPosition().y;
+    return ((getDistance(asteroidX, asteroidY, laserX, laserY) - asteroidRadius) < 3); // 3 is radius of laser
 }
 
 double getDistance(int x1, int y1, int x2, int y2) {
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-}
-
-void shuffleAsteroids(vector<Asteroid> &asteroids) {
-    int width = (int) WIN_WIDTH;
-    int height = (int) WIN_HEIGHT;
-    for (int i = 0; i < asteroids.size(); i++) {
-        int x = rand() % width;
-        int y = rand() % height;
-        struct Position pos = Position();
-        pos.dx = 0;
-        pos.dy = 0;
-        if (i % 4 == 0) {
-            pos.x = x;
-            pos.y = 0;
-            asteroids[i].setPosition(pos);
-        } else if (i % 3 == 0) {
-            pos.x = x;
-            pos.y = height;
-            asteroids[i].setPosition(pos);
-        } else if (i % 2 == 0) {
-            pos.x = 0;
-            pos.y = y;
-            asteroids[i].setPosition(pos);
-        } else {
-            pos.x = width;
-            pos.y = y;
-            asteroids[i].setPosition(pos);
-        }
-    }
 }
 
 vector<Asteroid> createAsteroids(int x) {
@@ -120,5 +125,9 @@ vector<Asteroid> createAsteroids(int x) {
         allAsteroids.push_back(asteroid4);
     }
     return allAsteroids;
+}
+
+void removeLasers(vector<Laser> &lasers) {
+    lasers.clear();
 }
 

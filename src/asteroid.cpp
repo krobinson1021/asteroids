@@ -26,7 +26,7 @@ Asteroid::Asteroid(int x, int y) {
 	coordinates.y = y;
 	coordinates.dx = 0;
 	coordinates.dy = 0;
-	speed = rand() % 15 + 1;
+	speed = rand() % 12 + 1;
 
 	shape.setFillColor(sf::Color(224, 224, 224));
 	shape.setOutlineThickness(4);
@@ -80,4 +80,12 @@ void Asteroid::setPosition(const struct Position &pos) {
 
 sf::CircleShape Asteroid::getShape() {
 	return shape;
+}
+
+struct Position Asteroid::getCenter() {
+    struct Position center;
+    sf::FloatRect rect = shape.getGlobalBounds();
+    center.x = rect.left + (rect.width / 2);
+    center.y = rect.top + (rect.height / 2);
+    return center;
 }

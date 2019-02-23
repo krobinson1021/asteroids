@@ -106,10 +106,13 @@ double Ship::getAngle() {
     return angle;
 }
 
-sf::CircleShape Ship::getShape() {
-    return shape;
+struct Position Ship::getCenter() {
+    struct Position center;
+    sf::FloatRect rect = shape.getGlobalBounds();
+    center.x = rect.left + (rect.width / 2);
+    center.y = rect.top + (rect.height / 2);
+    return center;
 }
-
 
 
 

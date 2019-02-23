@@ -34,6 +34,8 @@ public:
 
 	sf::CircleShape getShape();
 
+	struct Position getCenter();
+
 };
 
 #endif /* asteroid_hpp */
