@@ -102,11 +102,6 @@ void Asteroid::explode(vector<Asteroid> &asteroids) {
 			child.coordinates.dy = coordinates.dy;
 			child.speed = speed;
 			child.explodeCount = explodeCount;
-			child.shape.setFillColor(sf::Color(224, 224, 224));
-			child.shape.setOutlineThickness(4);
-			child.shape.setOutlineColor(sf::Color(255, 255, 255));
-			child.shape.setScale(sf::Vector2f(1.f, 1.f));
-			child.shape.setPosition(coordinates.x, coordinates.y);
 			child.shape.setRotation(angle);
 			asteroids.push_back(child);
 		}
