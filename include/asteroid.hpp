@@ -2,6 +2,8 @@
 #ifndef asteroid_hpp
 #define asteroid_hpp
 
+#include <SFML/Graphics.hpp>
+
 #include "position.hpp"
 
 using namespace std;
@@ -29,6 +31,8 @@ public:
 	struct Position getPosition();
 
 	void setPosition(const struct Position &pos);
+
+	sf::CircleShape getShape();
 
 };
 

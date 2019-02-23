@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
 
 #include "asteroid.hpp"
 #include "functions.hpp"
@@ -39,7 +40,7 @@ void Asteroid::update() {
 	struct Position pos = getPosition();
 
 	pos.dx = speed * cos(degreesToRadians(angle));
-    pos.dy = speed * sin(degreesToRadians(angle));
+	pos.dy = speed * sin(degreesToRadians(angle));
 
 	pos.x += pos.dx;
 	pos.y += pos.dy;
@@ -72,7 +73,11 @@ struct Position Asteroid::getPosition() {
 
 void Asteroid::setPosition(const struct Position &pos) {
 	coordinates.x = pos.x;
-    coordinates.y = pos.y;
-    coordinates.dx = pos.dx;
-    coordinates.dy = pos.dy;
+	coordinates.y = pos.y;
+	coordinates.dx = pos.dx;
+	coordinates.dy = pos.dy;
+}
+
+sf::CircleShape Asteroid::getShape() {
+	return shape;
 }

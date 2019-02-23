@@ -119,6 +119,10 @@ int main() {
             // fire
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+            window.close();
+        }
+
         ship.update();
         ship.draw(window);
 
@@ -131,14 +135,20 @@ int main() {
 // If ship hits asteroid, display game over screen
 
         bool collision = false;
+        for (Asteroid a : allAsteroids) {
+            if (collisionOccurred(a, ship)) {
+                collision = true;
+            }
+        }
         if (collision) {
-
             displayGameOverScreen(window);
-
+            ship.reset();
+            shuffle(allAsteroids);
             while (window.waitEvent(event)) {
-                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
                     break;
-                } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q) {
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
                     window.close();
                 }
             }

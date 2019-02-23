@@ -39,6 +39,8 @@ public:
 
     void setPosition(const struct Position &pos);
 
+    void reset();
+
 };
 
 #endif /* ship_hpp */

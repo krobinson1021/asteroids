@@ -90,6 +90,18 @@ void Ship::setPosition(const struct Position &pos) {
     coordinates.dy = pos.dy;
 }
 
+void Ship::reset() {
+    coordinates.x = WIN_WIDTH / 2;
+    coordinates.y = WIN_HEIGHT / 2;
+    coordinates.dy = 0;
+    coordinates.dx = 0;
+    maxSpeed = 65;
+    minSpeed = 0;
+    angle = 0;
+    shape.setPosition(coordinates.x, coordinates.y); /// this constructor allows you to change where ship is created
+    shape.setRotation(angle + 90);
+}
+
 
 
 
