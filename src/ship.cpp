@@ -19,7 +19,7 @@ Ship::Ship() {
     coordinates.y = WIN_HEIGHT / 2;
     coordinates.dy = 0;
     coordinates.dx = 0;
-    maxSpeed = 55;
+    maxSpeed = 15;
     minSpeed = 0;
     angle = 0;
 

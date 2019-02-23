@@ -26,7 +26,7 @@ Asteroid::Asteroid(int x, int y) {
 	coordinates.y = y;
 	coordinates.dx = 0;
 	coordinates.dy = 0;
-	speed = rand() % 10 + 1;
+	speed = rand() % 6 + 1;
 	explodeCount = 0;
 
 	shape.setFillColor(sf::Color(224, 224, 224));
@@ -93,8 +93,8 @@ struct Position Asteroid::getCenter() {
 
 void Asteroid::explode(vector<Asteroid> &asteroids) {
 	explodeCount++;
-	if (radius > 20 && explodeCount < 3) {
-		for (int i = 1; i <= 3; i++) {
+	if (radius > 35 && explodeCount < 3) {
+		for (int i = 1; i <= 2; i++) {
 			Asteroid child = Asteroid(coordinates.x, coordinates.y);
 			child.angle = angle + (rand() % 360);
 			child.shape.setRadius(radius / (explodeCount + 1)); // half as big
