@@ -14,7 +14,7 @@ I created this version of the vintage arcade game 'Asteroids!' in C++ with the S
 
 # Gameplay
 
-YouTube: ![](https://youtu.be/fzb3AEMBta0)
+[Gameplay Video on Youtube](https://youtu.be/fzb3AEMBta0)
 
 # Screenshots
 
