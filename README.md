@@ -14,7 +14,14 @@ I created this version of the vintage arcade game 'Asteroids!' in C++ with the S
 
 # Gameplay
 
-[![Click to play video!](http://img.youtube.com/vi/fzb3AEMBta0/0.jpg)](https://youtu.be/fzb3AEMBta0)
+YouTube: ![](https://youtu.be/fzb3AEMBta0)
+
+# Screenshots
+
+![start screen](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/start.png)
+![gameplay](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/gameplay.png)
+![game over](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/gameOver.png)
+![game win](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/win.png)
 
 
 # Resources
