@@ -14,10 +14,7 @@ I created this version of the vintage arcade game 'Asteroids!' in C++ with the S
 
 # Gameplay
 
-![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/start.png)
-![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/gameplay.png)
-![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/gameOver.png)
-![alt text](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/win.png)
+![alt text](https://gfycat.com/ThisVibrantHeterodontosaurus)
 
 # Resources
 - SFML library: https://www.sfml-dev.org/
