@@ -108,21 +108,22 @@ double getDistance(int x1, int y1, int x2, int y2) {
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
-vector<Asteroid> createAsteroids(int x) {
+vector<Asteroid> createAsteroids(int numberOfAsteroids) {
+    int width = (int) WIN_WIDTH;
+    int height = (int) WIN_HEIGHT;
     vector<Asteroid> allAsteroids;
-    for (int i = 0; i < (x / 4); i++) {
-        int width = (int) WIN_WIDTH;
-        int height = (int) WIN_HEIGHT;
+    for (int i = 0; i < numberOfAsteroids; i++) {
         int x = rand() % width;
         int y = rand() % height;
-        Asteroid asteroid1 = Asteroid(x, 0);
-        Asteroid asteroid2 = Asteroid(x, WIN_HEIGHT);
-        Asteroid asteroid3 = Asteroid(0, y);
-        Asteroid asteroid4 = Asteroid(WIN_WIDTH, y);
-        allAsteroids.push_back(asteroid1);
-        allAsteroids.push_back(asteroid2);
-        allAsteroids.push_back(asteroid3);
-        allAsteroids.push_back(asteroid4);
+        Asteroid a = Asteroid(x, 0);
+        if (i % 4 == 0) {
+           a = Asteroid(x, height);
+        } else if (i % 3 == 0) {
+           a = Asteroid(0, y);
+        } else if (i % 2 == 0) {
+            a = Asteroid(width, y);
+        }
+        allAsteroids.push_back(a);
     }
     return allAsteroids;
 }

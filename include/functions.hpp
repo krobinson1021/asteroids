@@ -27,7 +27,7 @@ bool checkHit(Asteroid asteroid, Laser laser);
 
 double getDistance(int x1, int y1, int x2, int y2);
 
-vector<Asteroid> createAsteroids(int x);
+vector<Asteroid> createAsteroids(int numberOfAsteroids);
 
 void removeLasers(vector<Laser> &lasers);
 
