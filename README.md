@@ -14,7 +14,7 @@ I created this version of the vintage arcade game 'Asteroids!' in C++ with the S
 
 # Gameplay
 
-![alt text](https://gfycat.com/ThisVibrantHeterodontosaurus)
+![](https://thumbs.gfycat.com/ThisVibrantHeterodontosaurus-size_restricted.gif))
 
 # Resources
 - SFML library: https://www.sfml-dev.org/
