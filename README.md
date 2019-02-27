@@ -25,7 +25,7 @@ I created this version of the vintage arcade game 'Asteroids!' in C++ with the S
 
 # Instructions to Run
 
-- Download all files and folders in this repository
+- Download all files and directories in this repository
 - Open a terminal and navigate to the "src" folder
 - Enter the command "make all" to compile, link, and run the game!
 - To close the window, type 'q'
