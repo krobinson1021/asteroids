@@ -23,6 +23,12 @@ I created this version of the vintage arcade game 'Asteroids!' in C++ with the S
 ![game over](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/gameOver.png)
 ![game win](https://github.com/krobinson1021/Asteroids/blob/master/screenshots/win.png)
 
+# Instructions to Run
+
+- Download all files and folders in this repository
+- Open a terminal and navigate to the "src" folder
+- Enter the command "make all" to compile, link, and run the game!
+- To close the window, type 'q'
 
 # Resources
 - SFML library: https://www.sfml-dev.org/
